@@ -1,0 +1,1264 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Like Bar – Menú</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #e01c1c;
+    --red-dark: #b01010;
+    --gold: #c9a227;
+    --black: #0a0a0a;
+    --dark: #141414;
+    --card: #1c1c1c;
+    --card2: #222222;
+    --border: #2e2e2e;
+    --text: #f0ede8;
+    --muted: #888;
+    --white: #ffffff;
+  }
+ 
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+ 
+  html { scroll-behavior: smooth; }
+ 
+  body {
+    background: var(--black);
+    color: var(--text);
+    font-family: 'Barlow', sans-serif;
+    font-size: 15px;
+    line-height: 1.5;
+    overflow-x: hidden;
+  }
+ 
+  /* ── HERO ─────────────────────────────────── */
+  .hero {
+    position: relative;
+    background: var(--dark);
+    text-align: center;
+    padding: 56px 24px 48px;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 50% 40%, rgba(224,28,28,.18) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-logo {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    margin-bottom: 12px;
+  }
+  .logo-like {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(72px, 18vw, 110px);
+    color: var(--red);
+    line-height: .9;
+    letter-spacing: 4px;
+    text-shadow: 0 0 40px rgba(224,28,28,.5);
+  }
+  .logo-sub {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    letter-spacing: 6px;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+  .hero-stripe {
+    width: 60px;
+    height: 3px;
+    background: var(--red);
+    margin: 16px auto 0;
+  }
+ 
+  /* ── NAV ──────────────────────────────────── */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(10,10,10,.96);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+    overflow-x: auto;
+    white-space: nowrap;
+    scrollbar-width: none;
+  }
+  nav::-webkit-scrollbar { display: none; }
+  .nav-inner {
+    display: inline-flex;
+    gap: 0;
+    min-width: 100%;
+    justify-content: center;
+    padding: 0 12px;
+  }
+  .nav-inner a {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 14px 16px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+    transition: color .2s, border-color .2s;
+  }
+  .nav-inner a:hover, .nav-inner a.active {
+    color: var(--white);
+    border-bottom-color: var(--red);
+  }
+  .nav-inner a .nav-icon { font-size: 14px; }
+ 
+  /* ── LAYOUT ───────────────────────────────── */
+  main { max-width: 960px; margin: 0 auto; padding: 0 16px 80px; }
+ 
+  section { padding-top: 56px; }
+ 
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+  .section-header h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(30px, 8vw, 44px);
+    letter-spacing: 3px;
+    color: var(--white);
+    line-height: 1;
+  }
+  .section-badge {
+    flex-shrink: 0;
+    width: 36px; height: 36px;
+    background: var(--red);
+    border-radius: 4px;
+    display: grid; place-items: center;
+    font-size: 18px;
+  }
+  .section-line {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+ 
+  /* ── GRID ─────────────────────────────────── */
+  .grid-2 { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; }
+ 
+  /* ── CARD ─────────────────────────────────── */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 20px;
+    position: relative;
+    transition: border-color .2s, transform .15s;
+  }
+  .card:hover {
+    border-color: var(--red);
+    transform: translateY(-2px);
+  }
+  .card-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: .5px;
+    color: var(--white);
+    margin-bottom: 6px;
+    text-transform: uppercase;
+  }
+  .card-desc {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.5;
+    margin-bottom: 12px;
+  }
+  .card-price {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    color: var(--red);
+    letter-spacing: 1px;
+  }
+  .card-price.alt { color: var(--gold); }
+  .price-row {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    align-items: baseline;
+  }
+  .price-label {
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-right: -10px;
+  }
+  .card-tag {
+    position: absolute;
+    top: 12px; right: 12px;
+    background: var(--red);
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 3px;
+  }
+  .card-tag.gold { background: var(--gold); color: var(--black); }
+ 
+  /* ── SAMPLER CARD ─────────────────────────── */
+  .sampler-card {
+    background: linear-gradient(135deg, #1f1208 0%, var(--card) 100%);
+    border: 1px solid #3a2800;
+    border-radius: 10px;
+    padding: 22px 24px;
+    transition: border-color .2s;
+  }
+  .sampler-card:hover { border-color: var(--gold); }
+  .sampler-card .card-name { color: var(--gold); }
+  .sampler-card .card-price { color: var(--gold); font-size: 28px; }
+  .sampler-items {
+    list-style: none;
+    margin: 10px 0 14px;
+  }
+  .sampler-items li {
+    font-size: 13px;
+    color: #bbb;
+    padding: 3px 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .sampler-items li::before {
+    content: '';
+    width: 4px; height: 4px;
+    background: var(--gold);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+ 
+  /* ── DRINKS TABLE ─────────────────────────── */
+  .drinks-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 12px;
+  }
+  .drink-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 18px;
+    transition: border-color .2s;
+  }
+  .drink-card:hover { border-color: #444; }
+  .drink-card .name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: .5px;
+    color: var(--white);
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .drink-card .desc {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.4;
+    margin-bottom: 10px;
+  }
+  .price-cols {
+    display: flex;
+    gap: 20px;
+  }
+  .price-col { display: flex; flex-direction: column; }
+  .price-col .label {
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+  }
+  .price-col .val {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    color: var(--red);
+    letter-spacing: 1px;
+  }
+ 
+  /* ── COCKTAIL CARD ────────────────────────── */
+  .cocktail-card {
+    background: linear-gradient(160deg, #150c1e 0%, #1c1c1c 100%);
+    border: 1px solid #2a1a3a;
+    border-radius: 10px;
+    padding: 18px 20px;
+    transition: border-color .2s, transform .15s;
+  }
+  .cocktail-card:hover { border-color: #7c4fc4; transform: translateY(-2px); }
+  .cocktail-card .card-name { color: #c084fc; }
+  .cocktail-card .card-price { color: #c084fc; }
+ 
+  /* ── SHOT CARD ────────────────────────────── */
+  .shot-card {
+    background: linear-gradient(135deg, #180a0a 0%, #1c1c1c 100%);
+    border: 1px solid #3a1010;
+    border-radius: 10px;
+    padding: 16px 18px;
+    transition: border-color .2s;
+  }
+  .shot-card:hover { border-color: var(--red); }
+ 
+  /* ── MOCKTAIL CARD ────────────────────────── */
+  .mocktail-card {
+    background: linear-gradient(135deg, #0a1a10 0%, #1c1c1c 100%);
+    border: 1px solid #0f2a18;
+    border-radius: 10px;
+    padding: 16px 18px;
+    transition: border-color .2s;
+  }
+  .mocktail-card:hover { border-color: #27c462; }
+  .mocktail-card .card-name { color: #4ade80; }
+  .mocktail-card .card-price { color: #4ade80; }
+ 
+  /* ── WINGS SPICE ──────────────────────────── */
+  .spice-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-top: 12px;
+  }
+  .spice-level {
+    background: var(--card2);
+    border-radius: 8px;
+    padding: 10px 12px;
+    text-align: center;
+  }
+  .spice-level .dot {
+    font-size: 18px;
+    margin-bottom: 4px;
+  }
+  .spice-level .title {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .spice-level .items { font-size: 11px; color: var(--muted); line-height: 1.4; }
+  .spice-level.hot .title { color: #ef4444; }
+  .spice-level.med .title { color: #f97316; }
+  .spice-level.none .title { color: #6ee7b7; }
+ 
+  /* ── CERVEZA SECTION ──────────────────────── */
+  .beer-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+    margin-bottom: 8px;
+  }
+  .beer-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 18px;
+    transition: border-color .2s;
+  }
+  .beer-card:hover { border-color: #856900; }
+  .beer-card .title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 6px;
+  }
+  .beer-card p { font-size: 12px; color: var(--muted); line-height: 1.5; }
+  .beer-card .price-big {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 24px;
+    color: var(--gold);
+    margin-top: 8px;
+  }
+ 
+  /* ── PACKAGES ─────────────────────────────── */
+  .pkg-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+  }
+  .pkg-card {
+    background: linear-gradient(135deg, #0d1a0a 0%, #1c1c1c 100%);
+    border: 1px solid #1a3a10;
+    border-radius: 10px;
+    padding: 18px 20px;
+    text-align: center;
+    transition: border-color .2s;
+  }
+  .pkg-card:hover { border-color: #4ade80; }
+  .pkg-card .pkg-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #4ade80;
+    margin-bottom: 4px;
+  }
+  .pkg-card .pkg-price {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 32px;
+    color: #4ade80;
+  }
+  .pkg-card .pkg-desc { font-size: 12px; color: var(--muted); }
+ 
+  /* ── MICHELIKE ────────────────────────────── */
+  .miche-card {
+    background: var(--card2);
+    border: 1px solid #2a1500;
+    border-radius: 10px;
+    padding: 14px 16px;
+    text-align: center;
+    transition: border-color .2s;
+  }
+  .miche-card:hover { border-color: #d97706; }
+  .miche-card .mname {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px; font-weight: 700;
+    letter-spacing: .5px;
+    text-transform: uppercase;
+    color: #fbbf24;
+    margin-bottom: 4px;
+  }
+  .miche-card .mprice {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    color: #fbbf24;
+  }
+ 
+  /* ── CHAMPAGNE ────────────────────────────── */
+  .champ-card {
+    background: linear-gradient(135deg, #1a1408 0%, #1c1c1c 100%);
+    border: 1px solid #3a3000;
+    border-radius: 10px;
+    padding: 16px 18px;
+    transition: border-color .2s;
+  }
+  .champ-card:hover { border-color: var(--gold); }
+  .champ-card .card-name { color: var(--gold); }
+  .champ-card .card-price { color: var(--gold); }
+ 
+  /* ── WINE ─────────────────────────────────── */
+  .wine-card {
+    background: linear-gradient(135deg, #160a10 0%, #1c1c1c 100%);
+    border: 1px solid #2a0f1a;
+    border-radius: 10px;
+    padding: 16px 18px;
+    transition: border-color .2s;
+  }
+  .wine-card:hover { border-color: #c084a0; }
+  .wine-card .card-name { color: #f0abcd; }
+  .wine-card .card-price { color: #f0abcd; }
+ 
+  /* ── FOOTER ───────────────────────────────── */
+  footer {
+    text-align: center;
+    padding: 40px 24px;
+    border-top: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 13px;
+    font-family: 'Barlow Condensed', sans-serif;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  footer a { color: var(--red); text-decoration: none; }
+ 
+  /* ── RESPONSIVE ───────────────────────────── */
+  @media (max-width: 480px) {
+    .spice-grid { grid-template-columns: 1fr; }
+    .nav-inner { justify-content: flex-start; }
+    .price-cols { gap: 14px; }
+  }
+ 
+  /* ── SCROLL REVEAL ────────────────────────── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity .4s ease, transform .4s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: none;
+  }
+</style>
+</head>
+<body>
+ 
+<!-- HERO -->
+<header class="hero">
+  <img src="logoLikeweb.png" alt="Like – Feel the Music" style="height:120px;width:auto;display:block;margin:0 auto;">
+  <p style="margin-top:16px;">
+    <a href="https://likebar.com.mx" target="_blank" style="display:inline-block;padding:12px 28px;background:var(--red);color:#fff;font-family:'Bebas Neue';font-size:16px;letter-spacing:3px;text-decoration:none;border-radius:6px;" onmouseover="this.style.background='#b01010'" onmouseout="this.style.background='var(--red)'">🌐 Regresar a likebar.com.mx</a>
+  </p>
+</header>
+ 
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#entradas"><span class="nav-icon">🍟</span>Entradas</a>
+ 
+    <a href="#burgers"><span class="nav-icon">🍔</span>Burgers</a>
+    <a href="#tacos"><span class="nav-icon">🌮</span>Tacos</a>
+    <a href="#pastas"><span class="nav-icon">🍝</span>Pastas</a>
+    <a href="#ensaladas"><span class="nav-icon">🥗</span>Ensaladas</a>
+    <a href="#postres"><span class="nav-icon">🍮</span>Postres</a>
+    <a href="#mixologia"><span class="nav-icon">🍹</span>Cócteles</a>
+    <a href="#cervezas"><span class="nav-icon">🍺</span>Cervezas</a>
+    <a href="#spirits"><span class="nav-icon">🥃</span>Spirits</a>
+    <a href="#vinos"><span class="nav-icon">🍷</span>Vinos</a>
+    <a href="#sin-alcohol"><span class="nav-icon">🧃</span>Sin Alcohol</a>
+  </div>
+</nav>
+ 
+<main>
+ 
+  <!-- ── ENTRADAS ── -->
+  <section id="entradas">
+    <div class="section-header reveal">
+      <div class="section-badge">🍟</div>
+      <h2>Entradas</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="grid-2 reveal">
+      <div class="card">
+        <div class="card-name">Guacamole</div>
+        <div class="card-desc">Fresco aguacate machacado y sazonado con un toque de limón, pico de gallo, servido con totopos.</div>
+        <div class="price-row">
+          <span class="price-label">Natural</span><span class="card-price">$149</span>
+          <span class="price-label">Chistorra</span><span class="card-price">$189</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-name">Dip de Espinacas y Tocino</div>
+        <div class="card-desc">Rica combinación de queso crema, queso mozzarella y gouda, espinacas baby y tocino acompañado de pan pita.</div>
+        <div class="card-price">$179</div>
+      </div>
+      <div class="card">
+        <div class="card-name">Cheesy Pops</div>
+        <div class="card-desc">Deliciosos bloques de queso chihuahua empanizados con panko y especias, acompañados de salsa marinara y blue cheese (6 piezas).</div>
+        <div class="card-price">$189</div>
+      </div>
+      <div class="card">
+        <div class="card-name">Cheesy Fries</div>
+        <div class="card-desc">Deliciosas papas gajo bañadas en queso cheddar coronadas con tocino crocante y un toque de aderezo blue cheese.</div>
+        <div class="card-price">$149</div>
+      </div>
+      <div class="card">
+        <div class="card-name">Chicken Quesadilla</div>
+        <div class="card-desc">Jugosa pechuga de pollo al grill, pimientos y cebolla gratinados con queso.</div>
+        <div class="card-price">$219</div>
+      </div>
+      <div class="card">
+        <div class="card-name">Tiras Crispy</div>
+        <div class="card-desc">Deliciosa pechuga con empanizado crocante, acompáñalas de tu salsa favorita y blue cheese.</div>
+        <div class="card-price">$289</div>
+      </div>
+      <div class="card">
+        <div class="card-name">Nachos</div>
+        <div class="card-desc">Totopos bañados en frijol frito, salsa de tomate, queso gratinado, jalapeños y guacamole.</div>
+        <div class="price-row">
+          <span class="price-label">Parrilla Pechuga</span><span class="card-price">$329</span>
+          <span class="price-label">Arrachera</span><span class="card-price">$379</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-tag">10 pzas c/u</div>
+        <div class="card-name">Wings / Boneless</div>
+        <div class="card-desc">Nuestros famosos boneless o alitas con el toque distintivo Like. Elige tu salsa favorita.</div>
+        <div class="price-row">
+          <span class="price-label">Alitas</span><span class="card-price">$249</span>
+          <span class="price-label">Boneless</span><span class="card-price">$249</span>
+        </div>
+        <div class="spice-grid">
+          <div class="spice-level hot">
+            <div class="dot">🌶️🌶️</div>
+            <div class="title">Muy Picante</div>
+            <div class="items">Mermelada habanero · Búfalo fuego</div>
+          </div>
+          <div class="spice-level med">
+            <div class="dot">🌶️</div>
+            <div class="title">Medio Picante</div>
+            <div class="items">Búfalo · Tamarindo chipotle · Jalapeño · BBQ Diablo</div>
+          </div>
+          <div class="spice-level none">
+            <div class="dot">✅</div>
+            <div class="title">Sin Picante</div>
+            <div class="items">BBQ</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+ 
+  <!-- ── SAMPLERS ── -->
+  <section id="samplers">
+    <div class="section-header reveal">
+      <div class="section-badge">🍽️</div>
+      <h2>Samplers</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="grid-2 reveal">
+      <div class="sampler-card">
+        <div class="card-name">Tablón Botanero</div>
+        <ul class="sampler-items">
+          <li>Alitas</li><li>Tiras de pollo</li><li>Boneless</li>
+          <li>Dip de espinacas y tocino</li><li>Guacamole</li><li>Chessy fries</li>
+        </ul>
+        <div class="card-price">$649</div>
+      </div>
+      <div class="sampler-card">
+        <div class="card-name">Four to Share</div>
+        <ul class="sampler-items">
+          <li>Tiras crispy</li><li>Chicken quesadilla</li>
+          <li>Cheesy Fries</li><li>Cheesy pops</li>
+        </ul>
+        <div class="card-price">$420</div>
+      </div>
+      <div class="sampler-card">
+        <div class="card-name">Three for All</div>
+        <ul class="sampler-items">
+          <li>Boneless</li><li>Alitas</li><li>Cheesy fries</li>
+        </ul>
+        <div class="card-price">$349</div>
+      </div>
+    </div>
+  </section>
+ 
+  <!-- ── BURGERS ── -->
+  <section id="burgers">
+    <div class="section-header reveal">
+      <div class="section-badge">🍔</div>
+      <h2>Hamburguesas</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="grid-2 reveal">
+      <div class="card">
+        <div class="card-name">Kansas BBQ Burger</div>
+        <div class="card-desc">200g de carne angus con salsa BBQ, lechuga, cebolla roja, queso americano, tocino y chile serrano. Pan artesanal, mayonesa spicy, papas lemon pepper.</div>
+        <div class="card-price">$280</div>
+      </div>
+      <div class="card">
+        <div class="card-name">Bacon Cheese Burger</div>
+        <div class="card-desc">200g de carne angus, queso americano, tocino, cebolla crocante, mayonesa spicy, pan artesanal y mucho queso cheddar.</div>
+        <div class="card-price">$289</div>
+      </div>
+      <div class="card">
+        <div class="card-name">Touch-Down Burger</div>
+        <div class="card-desc">200g de carne angus, lechuga, cebolla roja, jitomate, guacamole y tocino con pan artesanal. Papas a la francesa.</div>
+        <div class="card-price">$280</div>
+      </div>
+      <div class="card">
+        <div class="card-name">Buffalo Texas Burger</div>
+        <div class="card-desc">Tiras crispy bañadas en salsa búfalo, cebolla blanca, lechuga, blue cheese, pan artesanal, mayonesa spicy y papas a la francesa.</div>
+        <div class="card-price">$280</div>
+      </div>
+    </div>
+  </section>
+ 
+  <!-- ── TACOS ── -->
+  <section id="tacos">
+    <div class="section-header reveal">
+      <div class="section-badge">🌮</div>
+      <h2>Tacos <small style="font-size:14px;font-family:'Barlow';color:var(--muted);letter-spacing:1px;">Orden 3 pzs</small></h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="grid-2 reveal">
+      <div class="card">
+        <div class="card-name">Arrachera</div>
+        <div class="card-desc">Deliciosa y jugosa arrachera, cebollas cambray, aguacate, cilantro, costra de queso y confeti de papa, con tortilla de maíz. Acompañados con salsa molcajeteada, salsa verde, pico de gallo y chiles serranos toreados.</div>
+        <div class="card-price">$319</div>
+      </div>
+      <div class="card">
+        <div class="card-name">Brocheta</div>
+        <div class="card-desc">Exquisitas brochetas de pechuga a la parrilla marinadas con nuestra receta secreta, cebolla, pimiento, jitomate, tortilla de harina, tocino, frijol y aguacate con brotes de cilantro. Salsa molcajeteada, salsa verde y crema de ajo.</div>
+        <div class="card-price">$259</div>
+      </div>
+    </div>
+  </section>
+ 
+  <!-- ── PASTAS ── -->
+  <section id="pastas">
+    <div class="section-header reveal">
+      <div class="section-badge">🍝</div>
+      <h2>Pastas</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="grid-2 reveal">
+      <div class="card">
+        <div class="card-name">Fettuccini Alfredo</div>
+        <div class="card-desc">La tradicional salsa Alfredo hecha a base de crema y queso con el toque especial de la casa, acompañada con nuestras famosas tiras de pollo crispy.</div>
+        <div class="card-price">$249</div>
+      </div>
+      <div class="card">
+        <div class="card-name">Fettuccini Alfredo Chipotle</div>
+        <div class="card-desc">Salsa Alfredo con chipotle, el toque ahumado y picante de la casa. Con tiras de pollo crispy.</div>
+        <div class="card-price">$249</div>
+      </div>
+    </div>
+  </section>
+ 
+  <!-- ── ENSALADAS ── -->
+  <section id="ensaladas">
+    <div class="section-header reveal">
+      <div class="section-badge">🥗</div>
+      <h2>Ensaladas</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="grid-2 reveal">
+      <div class="card">
+        <div class="card-name">Chicken Salad</div>
+        <div class="card-desc">Fresca combinación de lechugas, vinagreta de zarzamoras, tomate cherry, queso roquefort, palanqueta de cacahuate, pechuga de pollo a las finas hierbas y un toque de parmesano.</div>
+        <div class="card-price">$195</div>
+      </div>
+    </div>
+  </section>
+ 
+  <!-- ── POSTRES ── -->
+  <section id="postres">
+    <div class="section-header reveal">
+      <div class="section-badge">🍮</div>
+      <h2>Postres</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="grid-2 reveal">
+      <div class="card">
+        <div class="card-name">Brownie con Helado</div>
+        <div class="card-desc">Brownie hecho en casa servido con cremosas bolas de helado de vainilla y crujientes galletas preparadas con la receta de la abuela.</div>
+        <div class="card-price">$145</div>
+      </div>
+    </div>
+  </section>
+ 
+  <!-- ── MIXOLOGÍA ── -->
+  <section id="mixologia">
+    <div class="section-header reveal">
+      <div class="section-badge">🍹</div>
+      <h2>Cocteles</h2>
+      <div class="section-line"></div>
+    </div>
+ 
+    <!-- SPRITZ -->
+    <div class="section-header reveal" style="margin-top:36px;">
+      <h2 style="font-size:26px;">Spritz</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="drinks-grid reveal">
+      <div class="cocktail-card">
+        <div class="card-name">Aperol</div>
+        <div class="card-desc">Aperol, Cinzano Prosecco y agua mineralizada.</div>
+        <div class="card-price">$180</div>
+      </div>
+      <div class="cocktail-card">
+        <div class="card-name">Limoncello</div>
+        <div class="card-desc">Limoncello, Cinzano Prosecco y agua mineralizada.</div>
+        <div class="card-price">$180</div>
+      </div>
+      <div class="cocktail-card">
+        <div class="card-name">St-Germain</div>
+        <div class="card-desc">St-Germain, Cinzano Prosecco y agua mineralizada.</div>
+        <div class="card-price">$220</div>
+      </div>
+    </div>
+ 
+    <!-- NEGRONI -->
+    <div class="section-header reveal" style="margin-top:36px;">
+      <h2 style="font-size:26px;">Negroni</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="drinks-grid reveal">
+      <div class="cocktail-card">
+        <div class="card-name">Negroni Clásico</div>
+        <div class="card-price">$220</div>
+      </div>
+      <div class="cocktail-card">
+        <div class="card-name">Negroni Chocolate</div>
+        <div class="card-price">$220</div>
+      </div>
+    </div>
+ 
+    <!-- MIXOLOGÍA DE AUTOR -->
+    <div class="section-header reveal" style="margin-top:36px;">
+      <h2 style="font-size:26px;">Mixología de Autor</h2>
+      <span style="font-family:'Barlow Condensed';font-size:12px;color:var(--muted);letter-spacing:1px;">by Randy Quintal</span>
+      <div class="section-line"></div>
+    </div>
+    <div class="drinks-grid reveal">
+      <div class="cocktail-card">
+        <div class="card-name">Guava Electric</div>
+        <div class="card-desc">Vodka de guayaba (Smirnoff Guava), naranja y mix cítrico.</div>
+        <div class="card-price">$220</div>
+      </div>
+      <div class="cocktail-card">
+        <div class="card-name">Scottish Yellow</div>
+        <div class="card-desc">Whisky de piña (Buchanan's Pineapple), maracuyá y coco.</div>
+        <div class="card-price">$220</div>
+      </div>
+      <div class="cocktail-card">
+        <div class="card-name">Spicy Love</div>
+        <div class="card-desc">Vodka de tamarindo (Smirnoff X1), naranja y piña con un toque picante.</div>
+        <div class="card-price">$220</div>
+      </div>
+      <div class="cocktail-card">
+        <div class="card-name">Purple Fizz</div>
+        <div class="card-desc">Ginebra Bombay, zarzamora y mix cítrico.</div>
+        <div class="card-price">$220</div>
+      </div>
+      <div class="cocktail-card">
+        <div class="card-name">Pink Chata</div>
+        <div class="card-desc">Rumchata con coco y piña.</div>
+        <div class="card-price">$220</div>
+      </div>
+    </div>
+ 
+    <!-- MEZCALITAS ON FIRE -->
+    <div class="section-header reveal" style="margin-top:36px;">
+      <h2 style="font-size:26px;">Mezcalitas On Fire</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="drinks-grid reveal">
+      <div class="cocktail-card">
+        <div class="card-name">Mango Maracuyá</div>
+        <div class="card-desc">Mezcal Amarás Verde, jugo de limón, jarabe natural y pulpa de mango y maracuyá.</div>
+        <div class="card-price">$220</div>
+      </div>
+      <div class="cocktail-card">
+        <div class="card-name">Frutos Rojos</div>
+        <div class="card-desc">Mezcal Amarás Verde, jugo de limón, jarabe natural y pulpa de frutos rojos.</div>
+        <div class="card-price">$220</div>
+      </div>
+      <div class="cocktail-card">
+        <div class="card-name">Jamaica Canela</div>
+        <div class="card-desc">Mezcal Amarás Verde, jugo de limón, jarabe de canela y jamaica.</div>
+        <div class="card-price">$220</div>
+      </div>
+      <div class="cocktail-card">
+        <div class="card-name">Pepino</div>
+        <div class="card-desc">Mezcal Verde Amarás, limón, pepino y jarabe natural.</div>
+        <div class="card-price">$220</div>
+      </div>
+      <div class="cocktail-card">
+        <div class="card-name">Pitahaya</div>
+        <div class="card-desc">Mezcal Amarás Verde, jugo de limón, jarabe natural y pulpa de pitahaya.</div>
+        <div class="card-price">$220</div>
+      </div>
+    </div>
+ 
+    <!-- MOJITOS -->
+    <div class="section-header reveal" style="margin-top:36px;">
+      <h2 style="font-size:26px;">Mojitos</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="drinks-grid reveal">
+      <div class="cocktail-card"><div class="card-name">Mojito Añejo</div><div class="card-price">$180</div></div>
+      <div class="cocktail-card"><div class="card-name">Mojito Maracuyá</div><div class="card-price">$180</div></div>
+      <div class="cocktail-card"><div class="card-name">Mojito Frutos Rojos</div><div class="card-price">$180</div></div>
+      <div class="cocktail-card"><div class="card-name">Mojito Guanábana</div><div class="card-price">$180</div></div>
+    </div>
+ 
+    <!-- MIXOLOGÍA DE LA CASA -->
+    <div class="section-header reveal" style="margin-top:36px;">
+      <h2 style="font-size:26px;">Mixología de la Casa</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="drinks-grid reveal">
+      <div class="cocktail-card">
+        <div class="card-name">Cantarindo</div>
+        <div class="card-desc">Tequila, jugo de limón, jarabe de tamarindo, jugo de naranja, refresco de toronja y chile.</div>
+        <div class="card-price">$165</div>
+      </div>
+      <div class="cocktail-card">
+        <div class="card-name">Mambo Like</div>
+        <div class="card-desc">Tequila reposado, Controy, naranja, toronja, limón, refresco de toronja y chile piquín.</div>
+        <div class="card-price">$165</div>
+      </div>
+      <div class="cocktail-card">
+        <div class="card-name">Mal Bicho</div>
+        <div class="card-desc">Mezcal Amarás Verde, jugo de limón, puré de piña con chipotle, hierbabuena y ginger ale.</div>
+        <div class="card-price">$165</div>
+      </div>
+      <div class="cocktail-card">
+        <div class="card-name">Azul & Blues</div>
+        <div class="card-desc">Vodka, curaçao azul, jugo de limón, pepino, crema de coco y sprite.</div>
+        <div class="card-price">$165</div>
+      </div>
+      <div class="cocktail-card">
+        <div class="card-name">Rojo Like</div>
+        <div class="card-desc">Ginebra, frambuesa, hierbabuena, jugo de limón, agua tónica y cardamomo.</div>
+        <div class="card-price">$165</div>
+      </div>
+    </div>
+ 
+    <!-- CARAJILLOS -->
+    <div class="section-header reveal" style="margin-top:36px;">
+      <h2 style="font-size:26px;">Carajillos</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="drinks-grid reveal">
+      <div class="cocktail-card">
+        <div class="card-name">Carajillo Clásico</div>
+        <div class="card-desc">Licor 43 y café espresso.</div>
+        <div class="card-price">$180</div>
+      </div>
+      <div class="cocktail-card">
+        <div class="card-name">Carajillo Rum Blue</div>
+        <div class="card-desc">Rumchata, Licor 43 y espresso.</div>
+        <div class="card-price">$220</div>
+      </div>
+      <div class="cocktail-card">
+        <div class="card-name">Carajillo Beso</div>
+        <div class="card-desc">Baileys, Licor 43 y café espresso.</div>
+        <div class="card-price">$180</div>
+      </div>
+    </div>
+ 
+    <!-- SHOTS -->
+    <div class="section-header reveal" style="margin-top:36px;">
+      <h2 style="font-size:26px;">Shots</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="grid-3 reveal">
+      <div class="shot-card">
+        <div class="card-name">El Fresa</div>
+        <div class="card-desc">Vodka, fresa, jugo de limón, chamoy.</div>
+        <div class="card-price">$85</div>
+      </div>
+      <div class="shot-card">
+        <div class="card-name">Baby Mango</div>
+        <div class="card-desc">Vodka, jugo de limón, mango, chamoy.</div>
+        <div class="card-price">$85</div>
+      </div>
+      <div class="shot-card">
+        <div class="card-name">Cry Baby</div>
+        <div class="card-desc">Mezcal Amarás Verde, maracuyá, chamoy, jugo de limón, escarchado con sal de chapulín.</div>
+        <div class="card-price">$85</div>
+      </div>
+    <div class="grid-3 reveal">
+    </div>
+  </section>
+ 
+  <!-- ── CERVEZAS ── -->
+  <section id="cervezas">
+    <div class="section-header reveal">
+      <div class="section-badge">🍺</div>
+      <h2>Cervezas</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="beer-row reveal">
+      <div class="beer-card">
+        <div class="title">Nacionales — $60</div>
+        <p>Tecate Light · Indio · XX Lager · XX Ámbar · Tecate Roja</p>
+      </div>
+      <div class="beer-card">
+        <div class="title">Premium — $65</div>
+        <p>Heineken · Bohemia Clara · Bohemia Oscura · Amstel Ultra · XX Ultra Lager</p>
+      </div>
+      <div class="beer-card">
+        <div class="title">Sin Alcohol — $65</div>
+        <p>Heineken 0.0</p>
+      </div>
+      <div class="beer-card">
+        <div class="title">Para Mezclar — $35</div>
+        <p>Ojo Rojo · Chelada · Michelada · Michelada de Sabor · Bandera</p>
+      </div>
+    </div>
+ 
+    <!-- Michelike -->
+    <div class="section-header reveal" style="margin-top:32px;">
+      <h2 style="font-size:26px;">Michelike</h2>
+      <span style="font-family:'Barlow Condensed';font-size:13px;color:var(--muted);letter-spacing:1px;">$75 c/u</span>
+      <div class="section-line"></div>
+    </div>
+    <div class="grid-3 reveal">
+      <div class="miche-card"><div class="mname">Chelada</div></div>
+      <div class="miche-card"><div class="mname">Clásica</div></div>
+      <div class="miche-card"><div class="mname">Mangollada</div></div>
+      <div class="miche-card"><div class="mname">Tamarindo</div></div>
+      <div class="miche-card"><div class="mname">Fresa</div></div>
+      <div class="miche-card"><div class="mname">Ojo Rojo</div></div>
+    </div>
+ 
+    <!-- Paquetes para grupos -->
+    <div class="section-header reveal" style="margin-top:32px;">
+      <h2 style="font-size:26px;">Paquetes para Grupos</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="pkg-grid reveal">
+      <div class="pkg-card">
+        <div class="pkg-name">Cubetazo 6 Nacional</div>
+        <div class="pkg-price">$330</div>
+        <div class="pkg-desc">A elegir</div>
+      </div>
+      <div class="pkg-card">
+        <div class="pkg-name">Cubetazo 6 Premium</div>
+        <div class="pkg-price">$360</div>
+        <div class="pkg-desc">A elegir</div>
+      </div>
+      <div class="pkg-card">
+        <div class="pkg-name">Cubetazo 12 Nacional</div>
+        <div class="pkg-price">$655</div>
+        <div class="pkg-desc">A elegir</div>
+      </div>
+      <div class="pkg-card">
+        <div class="pkg-name">Mega Cubo 24 Nacional</div>
+        <div class="pkg-price">$1,200</div>
+        <div class="pkg-desc">A elegir</div>
+      </div>
+    </div>
+  </section>
+ 
+  <!-- ── SPIRITS ── -->
+  <section id="spirits">
+    <div class="section-header reveal">
+      <div class="section-badge">🥃</div>
+      <h2>Spirits</h2>
+      <div class="section-line"></div>
+    </div>
+ 
+    <!-- TEQUILA -->
+    <h3 style="font-family:'Bebas Neue';font-size:22px;letter-spacing:2px;color:var(--gold);margin-bottom:12px;" class="reveal">🌵 Tequila</h3>
+    <div class="drinks-grid reveal">
+      <div class="drink-card"><div class="name">Don Julio Reposado</div><div class="price-cols"><div class="price-col"><span class="label">Copa</span><span class="val">$139</span></div><div class="price-col"><span class="label">Botella</span><span class="val">$2,300</span></div></div></div>
+      <div class="drink-card"><div class="name">Don Julio Blanco</div><div class="price-cols"><div class="price-col"><span class="label">Copa</span><span class="val">$125</span></div><div class="price-col"><span class="label">Botella</span><span class="val">$2,200</span></div></div></div>
+      <div class="drink-card"><div class="name">Don Julio 70</div><div class="price-cols"><div class="price-col"><span class="label">Copa</span><span class="val">$160</span></div><div class="price-col"><span class="label">Botella</span><span class="val">$2,950</span></div></div></div>
+      <div class="drink-card"><div class="name">Herradura Reposado</div><div class="price-cols"><div class="price-col"><span class="label">Copa</span><span class="val">$125</span></div><div class="price-col"><span class="label">Botella</span><span class="val">$2,100</span></div></div></div>
+      <div class="drink-card"><div class="name">Cazadores Reposado</div><div class="price-cols"><div class="price-col"><span class="label">Copa</span><span class="val">$110</span></div><div class="price-col"><span class="label">Botella</span><span class="val">$1,250</span></div></div></div>
+      <div class="drink-card"><div class="name">José Cuervo Tradicional Reposado</div><div class="price-cols"><div class="price-col"><span class="label">Copa</span><span class="val">$105</span></div><div class="price-col"><span class="label">Botella</span><span class="val">$1,450</span></div></div></div>
+      <div class="drink-card"><div class="name">Maestro Dobel Diamante</div><div class="price-cols"><div class="price-col"><span class="label">Copa</span><span class="val">$140</span></div><div class="price-col"><span class="label">Botella</span><span class="val">$2,550</span></div></div></div>
+      <div class="drink-card"><div class="name">Tequila 1800 Cristalino</div><div class="price-cols"><div class="price-col"><span class="label">Copa</span><span class="val">$140</span></div><div class="price-col"><span class="label">Botella</span><span class="val">$2,600</span></div></div></div>
+      <div class="drink-card"><div class="name">Don Ramón Punta Diamante</div><div class="price-cols"><div class="price-col"><span class="label">Copa</span><span class="val">$89</span></div><div class="price-col"><span class="label">Botella</span><span class="val">$1,200</span></div></div></div>
+      <div class="drink-card"><div class="name">Don Ramón Platinum Plata</div><div class="price-cols"><div class="price-col"><span class="label">Copa</span><span class="val">$129</span></div><div class="price-col"><span class="label">Botella</span><span class="val">$2,100</span></div></div></div>
+      <div class="drink-card"><div class="name">Tequila Gran Malo Tamarindo</div><div class="price-cols"><div class="price-col"><span class="label">Copa</span><span class="val">$95</span></div><div class="price-col"><span class="label">Botella</span><span class="val">$1,200</span></div></div></div>
+      <div class="drink-card"><div class="name">Magnum Dobel Diamante 3L</div><div class="price-cols"><div class="price-col"><span class="label">Botella</span><span class="val">$9,000</span></div></div></div>
+    </div>
+ 
+    <!-- MEZCAL -->
+    <h3 style="font-family:'Bebas Neue';font-size:22px;letter-spacing:2px;color:var(--gold);margin:32px 0 12px;" class="reveal">🔥 Mezcal</h3>
+    <div class="drinks-grid reveal">
+      <div class="drink-card"><div class="name">400 Conejos</div><div class="price-cols"><div class="price-col"><span class="label">Copa</span><span class="val">$115</span></div><div class="price-col"><span class="label">Botella</span><span class="val">$1,850</span></div></div></div>
+      <div class="drink-card"><div class="name">Mezcal Unión Joven</div><div class="price-cols"><div class="price-col"><span class="label">Copa</span><span class="val">$120</span></div><div class="price-col"><span class="label">Botella</span><span class="val">$2,100</span></div></div></div>
+      <div class="drink-card"><div class="name">Mezcal Unión Viejo</div><div class="price-cols"><div class="price-col"><span class="label">Copa</span><span class="val">$140</span></div><div class="price-col"><span class="label">Botella</span><span class="val">$2,350</span></div></div></div>
+      <div class="drink-card"><div class="name">Mezcal Ojo de Tigre</div><div class="price-cols"><div class="price-col"><span class="label">Copa</span><span class="val">$129</span></div><div class="price-col"><span class="label">Botella</span><span class="val">$1,800</span></div></div></div>
+    </div>
+ 
+    <!-- WHISKY -->
+    <h3 style="font-family:'Bebas Neue';font-size:22px;letter-spacing:2px;color:var(--gold);margin:32px 0 12px;" class="reveal">🥃 Whisky</h3>
+    <div class="drinks-grid reveal">
+      <div class="drink-card"><div class="name">Johnnie Walker Blue</div><div class="price-cols"><div class="price-col"><span class="label">Botella</span><span class="val">$14,100</span></div></div></div>
+      <div class="drink-card"><div class="name">Johnnie Walker Gold</div><div class="price-cols"><div class="price-col"><span class="label">Botella</span><span class="val">$3,600</span></div></div></div>
+      <div class="drink-card"><div class="name">Johnnie Walker Green Label</div><div class="price-cols"><div class="price-col"><span class="label">Botella</span><span class="val">$4,800</span></div></div></div>
+      <div class="drink-card"><div class="name">Johnnie Walker Black Label</div><div class="price-cols"><div class="price-col"><span class="label">Copa</span><span class="val">$170</span></div><div class="price-col"><span class="label">Botella</span><span class="val">$2,900</span></div></div></div>
+      <div class="drink-card"><div class="name">Johnnie Walker Double Black</div><div class="price-cols"><div class="price-col"><span class="label">Copa</span><span class="val">$185</span></div><div class="price-col"><span class="label">Botella</span><span class="val">$3,250</span></div></div></div>
+      <div class="drink-card"><div class="name">Red Label</div><div class="price-cols"><div class="price-col"><span class="label">Copa</span><span class="val">$105</span></div><div class="price-col"><span class="label">Botella</span><span class="val">$1,450</span></div></div></div>
+      <div class="drink-card"><div class="name">Buchanan's 12</div><div class="price-cols"><div class="price-col"><span class="label">Copa</span><span class="val">$165</span></div><div class="price-col"><span class="label">Botella</span><span class="val">$2,750</span></div></div></div>
+      <div class="drink-card"><div class="name">Buchanan's Master</div><div class="price-cols"><div class="price-col"><span class="label">Copa</span><span class="val">$175</span></div><div class="price-col"><span class="label">Botella</span><span class="val">$3,200</span></div></div></div>
+      <div class="drink-card"><div class="name">Buchanan's 18</div><div class="price-cols"><div class="price-col"><span class="label">Copa</span><span class="val">$265</span></div><div class="price-col"><span class="label">Botella</span><span class="val">$4,900</span></div></div></div>
+      <div class="drink-card"><div class="name">Chivas Regal 12</div><div class="price-cols"><div class="price-col"><span class="label">Copa</span><span class="val">$160</span></div><div class="price-col"><span class="label">Botella</span><span class="val">$2,400</span></div></div></div>
+      <div class="drink-card"><div class="name">Jack Daniel's</div><div class="price-cols"><div class="price-col"><span class="label">Copa</span><span class="val">$125</span></div><div class="price-col"><span class="label">Botella</span><span class="val">$1,750</span></div></div></div>
+      <div class="drink-card"><div class="name">Macallan 12</div><div class="price-cols"><div class="price-col"><span class="label">Copa</span><span class="val">$250</span></div><div class="price-col"><span class="label">Botella</span><span class="val">$4,150</span></div></div></div>
+      <div class="drink-card"><div class="name">Macallan 15</div><div class="price-cols"><div class="price-col"><span class="label">Botella</span><span class="val">$7,800</span></div></div></div>
+      <div class="drink-card"><div class="name">Glenfiddich</div><div class="price-cols"><div class="price-col"><span class="label">Copa</span><span class="val">$165</span></div><div class="price-col"><span class="label">Botella</span><span class="val">$3,050</span></div></div></div>
+      <div class="drink-card"><div class="name">Bushmills 10 años</div><div class="price-cols"><div class="price-col"><span class="label">Copa</span><span class="val">$170</span></div><div class="price-col"><span class="label">Botella</span><span class="val">$2,900</span></div></div></div>
+      <div class="drink-card"><div class="name">Old Parr 12 años</div><div class="price-cols"><div class="price-col"><span class="label">Copa</span><span class="val">$165</span></div><div class="price-col"><span class="label">Botella</span><span class="val">$2,750</span></div></div></div>
+    </div>
+ 
+    <!-- VODKA -->
+    <h3 style="font-family:'Bebas Neue';font-size:22px;letter-spacing:2px;color:var(--gold);margin:32px 0 12px;" class="reveal">🧊 Vodka</h3>
+    <div class="drinks-grid reveal">
+      <div class="drink-card"><div class="name">Smirnoff</div><div class="price-cols"><div class="price-col"><span class="label">Copa</span><span class="val">$90</span></div><div class="price-col"><span class="label">Botella</span><span class="val">$1,250</span></div></div></div>
+      <div class="drink-card"><div class="name">Smirnoff Tamarindo</div><div class="price-cols"><div class="price-col"><span class="label">Copa</span><span class="val">$90</span></div><div class="price-col"><span class="label">Botella</span><span class="val">$1,350</span></div></div></div>
+      <div class="drink-card"><div class="name">Absolut Azul</div><div class="price-cols"><div class="price-col"><span class="label">Copa</span><span class="val">$95</span></div><div class="price-col"><span class="label">Botella</span><span class="val">$1,250</span></div></div></div>
+      <div class="drink-card"><div class="name">Stolichnaya</div><div class="price-cols"><div class="price-col"><span class="label">Copa</span><span class="val">$110</span></div><div class="price-col"><span class="label">Botella</span><span class="val">$1,550</span></div></div></div>
+      <div class="drink-card"><div class="name">Grey Goose</div><div class="price-cols"><div class="price-col"><span class="label">Copa</span><span class="val">$160</span></div><div class="price-col"><span class="label">Botella</span><span class="val">$2,400</span></div></div></div>
+    </div>
+ 
+    <!-- RON -->
+    <h3 style="font-family:'Bebas Neue';font-size:22px;letter-spacing:2px;color:var(--gold);margin:32px 0 12px;" class="reveal">🌴 Ron</h3>
+    <div class="drinks-grid reveal">
+      <div class="drink-card"><div class="name">Captain Morgan</div><div class="price-cols"><div class="price-col"><span class="label">Copa</span><span class="val">$95</span></div><div class="price-col"><span class="label">Botella</span><span class="val">$1,250</span></div></div></div>
+      <div class="drink-card"><div class="name">Ron Zacapa 23</div><div class="price-cols"><div class="price-col"><span class="label">Copa</span><span class="val">$165</span></div><div class="price-col"><span class="label">Botella</span><span class="val">$3,200</span></div></div></div>
+      <div class="drink-card"><div class="name">Havana 7 años</div><div class="price-cols"><div class="price-col"><span class="label">Copa</span><span class="val">$120</span></div><div class="price-col"><span class="label">Botella</span><span class="val">$1,750</span></div></div></div>
+      <div class="drink-card"><div class="name">Bacardí Blanco / Añejo</div><div class="price-cols"><div class="price-col"><span class="label">Copa</span><span class="val">$95</span></div><div class="price-col"><span class="label">Botella</span><span class="val">$1,250</span></div></div></div>
+      <div class="drink-card"><div class="name">Bacardí Reserva 8 años</div><div class="price-cols"><div class="price-col"><span class="label">Copa</span><span class="val">$120</span></div><div class="price-col"><span class="label">Botella</span><span class="val">$1,450</span></div></div></div>
+      <div class="drink-card"><div class="name">Matusalem Clásico</div><div class="price-cols"><div class="price-col"><span class="label">Copa</span><span class="val">$105</span></div><div class="price-col"><span class="label">Botella</span><span class="val">$1,450</span></div></div></div>
+      <div class="drink-card"><div class="name">Matusalem 18</div><div class="price-cols"><div class="price-col"><span class="label">Copa</span><span class="val">$125</span></div><div class="price-col"><span class="label">Botella</span><span class="val">$2,150</span></div></div></div>
+      <div class="drink-card"><div class="name">Matusalem 23</div><div class="price-cols"><div class="price-col"><span class="label">Copa</span><span class="val">$180</span></div><div class="price-col"><span class="label">Botella</span><span class="val">$3,300</span></div></div></div>
+      <div class="drink-card"><div class="name">Appleton Estate</div><div class="price-cols"><div class="price-col"><span class="label">Copa</span><span class="val">$110</span></div><div class="price-col"><span class="label">Botella</span><span class="val">$1,250</span></div></div></div>
+      <div class="drink-card"><div class="name">Flor de Caña 4 Extra Dry</div><div class="price-cols"><div class="price-col"><span class="label">Copa</span><span class="val">$89</span></div><div class="price-col"><span class="label">Botella</span><span class="val">$1,250</span></div></div></div>
+      <div class="drink-card"><div class="name">Flor de Caña 7 años</div><div class="price-cols"><div class="price-col"><span class="label">Copa</span><span class="val">$110</span></div><div class="price-col"><span class="label">Botella</span><span class="val">$1,600</span></div></div></div>
+    </div>
+ 
+    <!-- BRANDY / GINEBRA / LICORES -->
+    <h3 style="font-family:'Bebas Neue';font-size:22px;letter-spacing:2px;color:var(--gold);margin:32px 0 12px;" class="reveal">🌿 Brandy · Ginebra · Licores</h3>
+    <div class="drinks-grid reveal">
+      <div class="drink-card"><div class="name">Brandy Torres 10</div><div class="price-cols"><div class="price-col"><span class="label">Copa</span><span class="val">$99</span></div><div class="price-col"><span class="label">Botella</span><span class="val">$1,400</span></div></div></div>
+      <div class="drink-card"><div class="name">Tanqueray</div><div class="price-cols"><div class="price-col"><span class="label">Copa</span><span class="val">$125</span></div><div class="price-col"><span class="label">Botella</span><span class="val">$2,000</span></div></div></div>
+      <div class="drink-card"><div class="name">Hendrick's</div><div class="price-cols"><div class="price-col"><span class="label">Copa</span><span class="val">$155</span></div><div class="price-col"><span class="label">Botella</span><span class="val">$2,900</span></div></div></div>
+      <div class="drink-card"><div class="name">Bombay Sapphire</div><div class="price-cols"><div class="price-col"><span class="label">Copa</span><span class="val">$125</span></div><div class="price-col"><span class="label">Botella</span><span class="val">$1,900</span></div></div></div>
+      <div class="drink-card"><div class="name">Licor 43</div><div class="price-cols"><div class="price-col"><span class="label">Copa</span><span class="val">$105</span></div><div class="price-col"><span class="label">Botella</span><span class="val">$1,800</span></div></div></div>
+      <div class="drink-card"><div class="name">Baileys</div><div class="price-cols"><div class="price-col"><span class="label">Copa</span><span class="val">$110</span></div><div class="price-col"><span class="label">Botella</span><span class="val">$1,380</span></div></div></div>
+      <div class="drink-card"><div class="name">Hpnotiq</div><div class="price-cols"><div class="price-col"><span class="label">Copa</span><span class="val">$150</span></div><div class="price-col"><span class="label">Botella</span><span class="val">$2,600</span></div></div></div>
+      <div class="drink-card"><div class="name">Jägermeister</div><div class="price-cols"><div class="price-col"><span class="label">Copa</span><span class="val">$120</span></div><div class="price-col"><span class="label">Botella</span><span class="val">$1,750</span></div></div></div>
+      <div class="drink-card"><div class="name">Amaretto Disaronno</div><div class="price-cols"><div class="price-col"><span class="label">Copa</span><span class="val">$99</span></div></div></div>
+    </div>
+  </section>
+ 
+  <!-- ── VINOS Y CHAMPAGNE ── -->
+  <section id="vinos">
+    <div class="section-header reveal">
+      <div class="section-badge">🍷</div>
+      <h2>Vinos &amp; Champagne</h2>
+      <div class="section-line"></div>
+    </div>
+    <h3 style="font-family:'Bebas Neue';font-size:22px;letter-spacing:2px;color:#f0abcd;margin-bottom:12px;" class="reveal">🍷 Vinos</h3>
+    <div class="drinks-grid reveal">
+      <div class="wine-card"><div class="card-name">Casa Madero 3v</div><div class="price-cols"><div class="price-col"><span class="label">Botella</span><span class="val" style="color:#f0abcd">$1,350</span></div></div></div>
+      <div class="wine-card"><div class="card-name">Rosado Sutter Home</div><div class="price-cols"><div class="price-col"><span class="label">Copa</span><span class="val" style="color:#f0abcd">$170</span></div><div class="price-col"><span class="label">Botella</span><span class="val" style="color:#f0abcd">$850</span></div></div></div>
+      <div class="wine-card"><div class="card-name">Michel Torino Malbec</div><div class="price-cols"><div class="price-col"><span class="label">Copa</span><span class="val" style="color:#f0abcd">$170</span></div><div class="price-col"><span class="label">Botella</span><span class="val" style="color:#f0abcd">$850</span></div></div></div>
+      <div class="wine-card"><div class="card-name">Michel Torino Cabernet Sauvignon</div><div class="price-cols"><div class="price-col"><span class="label">Copa</span><span class="val" style="color:#f0abcd">$170</span></div><div class="price-col"><span class="label">Botella</span><span class="val" style="color:#f0abcd">$850</span></div></div></div>
+    </div>
+    <h3 style="font-family:'Bebas Neue';font-size:22px;letter-spacing:2px;color:var(--gold);margin:28px 0 12px;" class="reveal">🥂 Champagne</h3>
+    <div class="drinks-grid reveal">
+      <div class="champ-card"><div class="card-name">Moët Chandon Brut Imperial</div><div class="card-price" style="color:var(--gold)">$3,500</div></div>
+      <div class="champ-card"><div class="card-name">Moët Chandon Ice Imperial</div><div class="card-price" style="color:var(--gold)">$4,300</div></div>
+      <div class="champ-card"><div class="card-name">Moët Chandon Rosé Imperial</div><div class="card-price" style="color:var(--gold)">$4,100</div></div>
+      <div class="champ-card"><div class="card-name">Moët Néctar Imperial</div><div class="card-price" style="color:var(--gold)">$3,600</div></div></div>
+    </div>
+  </section>
+ 
+  <!-- ── SIN ALCOHOL ── -->
+  <section id="sin-alcohol">
+    <div class="section-header reveal">
+      <div class="section-badge">🧃</div>
+      <h2>Sin Alcohol</h2>
+      <div class="section-line"></div>
+    </div>
+ 
+    <!-- Mocktails -->
+    <h3 style="font-family:'Bebas Neue';font-size:22px;letter-spacing:2px;color:#4ade80;margin-bottom:12px;" class="reveal">🌿 Mocktails — $90</h3>
+    <div class="drinks-grid reveal">
+      <div class="mocktail-card">
+        <div class="card-name">Red Temple</div>
+        <div class="card-desc">Puré natural de frutos rojos, jugo de limón, jarabe natural, cardamomo y sprite.</div>
+        <div class="card-price">$90</div>
+      </div>
+      <div class="mocktail-card">
+        <div class="card-name">Amazonas</div>
+        <div class="card-desc">Maracuyá, jugo de limón, ginger ale, sal de chapulines hecha en casa y lima limón.</div>
+        <div class="card-price">$90</div>
+      </div>
+      <div class="mocktail-card">
+        <div class="card-name">Bora Bora</div>
+        <div class="card-desc">Pepino, jugo de limón, jarabe de jengibre, jugo de piña y sprite.</div>
+        <div class="card-price">$90</div>
+      </div>
+    </div>
+ 
+    <!-- Refrescos & Jugos -->
+    <h3 style="font-family:'Bebas Neue';font-size:22px;letter-spacing:2px;color:#60a5fa;margin:28px 0 12px;" class="reveal">🥤 Refrescos &amp; Jugos</h3>
+    <div class="grid-2 reveal">
+      <div class="card" style="border-color:#1e3a5f;">
+        <div class="card-name" style="color:#60a5fa;">Familia Coca-Cola</div>
+        <div class="card-desc">Coca-Cola, toronja, Mundet, Sprite, agua mineral y agua purificada.</div>
+        <div class="card-price" style="color:#60a5fa;">$50</div>
+      </div>
+      <div class="card" style="border-color:#1e3a5f;">
+        <div class="card-name" style="color:#60a5fa;">Agua Quina Schweppes</div>
+        <div class="card-price" style="color:#60a5fa;">$50</div>
+      </div>
+      <div class="card" style="border-color:#1e3a5f;">
+        <div class="card-name" style="color:#60a5fa;">Ginger Ale Schweppes</div>
+        <div class="card-price" style="color:#60a5fa;">$50</div>
+      </div>
+      <div class="card" style="border-color:#1e3a5f;">
+        <div class="card-name" style="color:#60a5fa;">Topo Chico</div>
+        <div class="card-price" style="color:#60a5fa;">$85</div>
+      </div>
+      <div class="card" style="border-color:#1e3a5f;">
+        <div class="card-name" style="color:#60a5fa;">Perrier</div>
+        <div class="card-price" style="color:#60a5fa;">$85</div>
+      </div>
+      <div class="card" style="border-color:#1e3a5f;">
+        <div class="card-name" style="color:#60a5fa;">Agua Fiji</div>
+        <div class="card-price" style="color:#60a5fa;">$115</div>
+      </div>
+      <div class="card" style="border-color:#1e3a5f;">
+        <div class="card-name" style="color:#60a5fa;">Jugos</div>
+        <div class="card-desc">Té, limonada, naranjada, uva, piña, horchata, tomate, mango, manzana, toronja, limonada de fresa y arándano.</div>
+        <div class="card-price" style="color:#60a5fa;">$70</div>
+      </div>
+    </div>
+ 
+    <!-- Cafés & Carajillos -->
+    <h3 style="font-family:'Bebas Neue';font-size:22px;letter-spacing:2px;color:#d97706;margin:28px 0 12px;" class="reveal">☕ Cafés</h3>
+    <div class="grid-3 reveal">
+      <div class="card" style="border-color:#3a2800;">
+        <div class="card-name" style="color:#fbbf24;">Cappuccino</div>
+        <div class="card-price" style="color:#fbbf24;">$60</div>
+      </div>
+      <div class="card" style="border-color:#3a2800;">
+        <div class="card-name" style="color:#fbbf24;">Americano</div>
+        <div class="card-price" style="color:#fbbf24;">$45</div>
+      </div>
+      <div class="card" style="border-color:#3a2800;">
+        <div class="card-name" style="color:#fbbf24;">Espresso</div>
+        <div class="card-price" style="color:#fbbf24;">$45</div>
+      </div>
+    </div>
+ 
+  </section>
+ 
+</main>
+ 
+<footer>
+  <p style="margin-bottom:8px;">
+    <span style="font-family:'Bebas Neue';font-size:24px;color:var(--red);letter-spacing:3px;">LIKE</span>
+  </p>
+  <p>Feel the Music &nbsp;·&nbsp; <a href="https://likebar.com.mx" target="_blank">likebar.com.mx</a></p>
+  <p style="margin-top:20px;">
+    <a href="https://likebar.com.mx" target="_blank" style="display:inline-block;padding:12px 28px;background:var(--red);color:#fff;font-family:'Bebas Neue';font-size:16px;letter-spacing:3px;text-decoration:none;border-radius:6px;transition:background .2s;" onmouseover="this.style.background='#b01010'" onmouseout="this.style.background='var(--red)'">🌐 Regresar a likebar.com.mx</a>
+  </p>
+</footer>
+ 
+<script>
+  // Active nav on scroll
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('nav a');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        navLinks.forEach(a => a.classList.remove('active'));
+        const link = document.querySelector(`nav a[href="#${e.target.id}"]`);
+        if (link) { link.classList.add('active'); link.scrollIntoView({behavior:'smooth', block:'nearest', inline:'center'}); }
+      }
+    });
+  }, { rootMargin: '-40% 0px -55% 0px' });
+  sections.forEach(s => observer.observe(s));
+ 
+  // Reveal on scroll
+  const revealEls = document.querySelectorAll('.reveal');
+  const revObs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); revObs.unobserve(e.target); } });
+  }, { threshold: 0.08 });
+  revealEls.forEach(el => revObs.observe(el));
+</script>
+</body>
+</html>
